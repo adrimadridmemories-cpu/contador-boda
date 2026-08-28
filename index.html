@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cuenta atrás - Adrián y Sandra</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background: #f7f1e8;
+      color: #5f6753;
+      text-align: center;
+    }
+
+    .contador {
+      padding: 42px 20px;
+    }
+
+    .titulo {
+      font-size: 18px;
+      letter-spacing: 4px;
+      margin-bottom: 24px;
+    }
+
+    .numeros {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .bloque {
+      min-width: 90px;
+    }
+
+    .numero {
+      font-size: 44px;
+      line-height: 1;
+    }
+
+    .etiqueta {
+      margin-top: 8px;
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+
+    .texto {
+      margin-top: 30px;
+      font-size: 17px;
+      font-style: italic;
+    }
+
+    .fecha {
+      margin-top: 14px;
+      font-size: 14px;
+      letter-spacing: 2px;
+    }
+
+    @media (max-width: 600px) {
+      .contador {
+        padding: 30px 10px;
+      }
+
+      .numeros {
+        gap: 16px;
+      }
+
+      .bloque {
+        min-width: 70px;
+      }
+
+      .numero {
+        font-size: 34px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="contador">
+    <div class="titulo">FALTAN</div>
+
+    <div class="numeros">
+      <div class="bloque">
+        <div class="numero" id="dias">0</div>
+        <div class="etiqueta">DÍAS</div>
+      </div>
+
+      <div class="bloque">
+        <div class="numero" id="horas">0</div>
+        <div class="etiqueta">HORAS</div>
+      </div>
+
+      <div class="bloque">
+        <div class="numero" id="minutos">0</div>
+        <div class="etiqueta">MIN</div>
+      </div>
+
+      <div class="bloque">
+        <div class="numero" id="segundos">0</div>
+        <div class="etiqueta">SEG</div>
+      </div>
+    </div>
+
+    <div class="texto">para nuestro gran día</div>
+    <div class="fecha">03 · 07 · 2027 · 19:00</div>
+  </div>
+
+  <script>
+    const fechaBoda = new Date("2027-07-03T19:00:00+02:00");
+
+    function actualizarContador() {
+      const ahora = new Date();
+      const diferencia = fechaBoda - ahora;
+
+      if (diferencia <= 0) {
+        document.getElementById("dias").textContent = "0";
+        document.getElementById("horas").textContent = "0";
+        document.getElementById("minutos").textContent = "0";
+        document.getElementById("segundos").textContent = "0";
+        return;
+      }
+
+      const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+      const horas = Math.floor(
+        (diferencia / (1000 * 60 * 60)) % 24
+      );
+      const minutos = Math.floor(
+        (diferencia / (1000 * 60)) % 60
+      );
+      const segundos = Math.floor(
+        (diferencia / 1000) % 60
+      );
+
+      document.getElementById("dias").textContent = dias;
+      document.getElementById("horas").textContent =
+        String(horas).padStart(2, "0");
+      document.getElementById("minutos").textContent =
+        String(minutos).padStart(2, "0");
+      document.getElementById("segundos").textContent =
+        String(segundos).padStart(2, "0");
+    }
+
+    actualizarContador();
+    setInterval(actualizarContador, 1000);
+  </script>
+</body>
+</html>
