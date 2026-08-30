@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -12,31 +14,30 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
+html,
+body {
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  padding: 55px 20px 80px;
   background: #f7f4ef;
   color: #3f3a36;
   font-family: Georgia, "Times New Roman", serif;
+  padding: 55px 20px 80px;
 }
 
 
-/* =========================
-   CABECERA
-========================= */
+/* CABECERA */
 
 .cabecera {
   text-align: center;
-  max-width: 800px;
-  margin: 0 auto 75px;
+  max-width: 900px;
+  margin: 0 auto 70px;
 }
 
 .cabecera h1 {
-  margin: 0 0 15px;
+  margin: 0 0 14px;
   font-size: clamp(38px, 6vw, 64px);
   font-weight: 400;
   letter-spacing: 1px;
@@ -45,15 +46,13 @@ body {
 .cabecera p {
   margin: 0;
   font-family: Arial, sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   color: #77716c;
   letter-spacing: 2px;
 }
 
 
-/* =========================
-   SECCIONES
-========================= */
+/* SECCIONES */
 
 .seccion {
   max-width: 1250px;
@@ -70,20 +69,17 @@ body {
   font-size: clamp(29px, 4vw, 43px);
   font-weight: 400;
   font-style: italic;
-  letter-spacing: 0.5px;
 }
 
 .linea {
   width: 55px;
   height: 1px;
+  margin: 16px auto 0;
   background: #9d9287;
-  margin: 17px auto 0;
 }
 
 
-/* =========================
-   MOSAICO
-========================= */
+/* GALERÍA */
 
 .galeria {
   columns: 3;
@@ -92,33 +88,40 @@ body {
 
 .foto {
   position: relative;
-  overflow: hidden;
-  margin-bottom: 16px;
-  border-radius: 12px;
-  cursor: pointer;
+
+  display: inline-block;
+
+  width: 100%;
+
+  margin: 0 0 16px;
+
   break-inside: avoid;
 
+  overflow: hidden;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+
   box-shadow: 0 4px 16px rgba(0,0,0,0.09);
-
-  opacity: 1;
-transform: none;
-
-  animation: aparecer 0.7s ease forwards;
 }
 
-
 .foto img {
-  width: 100%;
   display: block;
 
+  width: 100%;
+  height: auto;
+
+  opacity: 1;
+
   transition:
-    transform 0.65s ease,
-    filter 0.65s ease;
+    transform 0.5s ease,
+    filter 0.5s ease;
 }
 
 .foto:hover img {
-  transform: scale(1.045);
-  filter: brightness(0.87);
+  transform: scale(1.035);
+  filter: brightness(0.9);
 }
 
 .foto::after {
@@ -131,17 +134,18 @@ transform: none;
   align-items: center;
   justify-content: center;
 
-  background: rgba(25,20,17,0.20);
+  background: rgba(20,18,16,0.18);
 
   color: white;
 
   font-family: Arial, sans-serif;
   font-size: 12px;
+
   letter-spacing: 2px;
 
   opacity: 0;
 
-  transition: opacity 0.4s ease;
+  transition: opacity 0.3s ease;
 
   pointer-events: none;
 }
@@ -151,21 +155,21 @@ transform: none;
 }
 
 
-/* =========================
-   LIGHTBOX
-========================= */
+/* LIGHTBOX */
 
 .lightbox {
   position: fixed;
+
   inset: 0;
 
   display: none;
+
   align-items: center;
   justify-content: center;
 
   background: rgba(18,17,16,0.96);
 
-  z-index: 9999;
+  z-index: 99999;
 
   padding: 30px;
 }
@@ -176,29 +180,13 @@ transform: none;
 
 .lightbox img {
   max-width: 90vw;
-  max-height: 86vh;
+  max-height: 84vh;
 
   object-fit: contain;
 
   border-radius: 6px;
 
   box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-
-  animation: zoom 0.3s ease;
-}
-
-@keyframes zoom {
-
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-
 }
 
 
@@ -217,15 +205,9 @@ transform: none;
 
   cursor: pointer;
 
-  opacity: 0.8;
-
-  z-index: 10;
+  z-index: 5;
 
   user-select: none;
-}
-
-.cerrar:hover {
-  opacity: 1;
 }
 
 
@@ -241,38 +223,33 @@ transform: none;
   color: white;
 
   font-family: Arial, sans-serif;
+
   font-size: 55px;
 
   cursor: pointer;
-
-  opacity: 0.7;
 
   padding: 20px;
 
   user-select: none;
 
-  z-index: 10;
-}
-
-.flecha:hover {
-  opacity: 1;
+  z-index: 5;
 }
 
 .anterior {
-  left: 15px;
+  left: 10px;
 }
 
 .siguiente {
-  right: 15px;
+  right: 10px;
 }
 
 
-/* INFORMACIÓN LIGHTBOX */
+/* INFORMACIÓN FOTO */
 
 .info-foto {
   position: absolute;
 
-  bottom: 17px;
+  bottom: 15px;
   left: 50%;
 
   transform: translateX(-50%);
@@ -281,29 +258,29 @@ transform: none;
 
   color: white;
 
-  font-family: Arial, sans-serif;
-
   white-space: nowrap;
 }
 
 .nombre-seccion {
-  font-family: Georgia, "Times New Roman", serif;
   font-style: italic;
+
   font-size: 17px;
 
   margin-bottom: 5px;
 }
 
 .contador {
+  font-family: Arial, sans-serif;
+
   font-size: 11px;
+
   letter-spacing: 2px;
-  opacity: 0.7;
+
+  opacity: 0.75;
 }
 
 
-/* =========================
-   TABLET
-========================= */
+/* TABLET */
 
 @media (max-width: 900px) {
 
@@ -311,25 +288,19 @@ transform: none;
     columns: 2;
   }
 
-  .seccion {
-    margin-bottom: 70px;
-  }
-
 }
 
 
-/* =========================
-   MÓVIL
-========================= */
+/* MÓVIL */
 
 @media (max-width: 600px) {
 
   body {
-    padding: 40px 10px 60px;
+    padding: 35px 9px 60px;
   }
 
   .cabecera {
-    margin-bottom: 55px;
+    margin-bottom: 50px;
   }
 
   .cabecera h1 {
@@ -337,7 +308,7 @@ transform: none;
   }
 
   .cabecera p {
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 1.5px;
   }
 
@@ -364,42 +335,41 @@ transform: none;
   }
 
   .lightbox {
-    padding: 10px;
+    padding: 8px;
   }
 
   .lightbox img {
-    max-width: 95vw;
-    max-height: 80vh;
+    max-width: 96vw;
+    max-height: 78vh;
   }
 
   .flecha {
-    font-size: 38px;
+    font-size: 40px;
     padding: 8px;
   }
 
   .anterior {
-    left: 2px;
+    left: 0;
   }
 
   .siguiente {
-    right: 2px;
+    right: 0;
   }
 
   .cerrar {
-    top: 10px;
-    right: 17px;
+    top: 8px;
+    right: 15px;
   }
 
 }
 
 </style>
+
 </head>
 
 
 <body>
 
-
-<!-- CABECERA -->
 
 <div class="cabecera">
 
@@ -410,12 +380,10 @@ transform: none;
 </div>
 
 
-<!-- LAS SECCIONES SE CREAN AUTOMÁTICAMENTE -->
-
 <div id="contenido"></div>
 
 
-<!-- LIGHTBOX -->
+<!-- VISOR -->
 
 <div class="lightbox" id="lightbox">
 
@@ -456,49 +424,99 @@ transform: none;
 
 <script>
 
-/* =========================================
-   AQUÍ ESTÁ ORGANIZADA NUESTRA HISTORIA
-========================================= */
+/* ========================================
+   ORGANIZACIÓN DE LAS FOTOS
+======================================== */
 
 const secciones = [
 
   {
     titulo: "La casualidad",
-    fotos: [13, 20]
+
+    fotos: [
+      "foto (13).JPG",
+      "foto (20).JPG"
+    ]
   },
+
 
   {
     titulo: "El Secreto",
-    fotos: [24, 23, 22, 8, 7]
+
+    fotos: [
+      "foto (24).JPG",
+      "foto (23).JPG",
+      "foto (22).JPG",
+      "foto (8).JPG",
+      "foto (7).JPG"
+    ]
   },
+
 
   {
     titulo: "La pareja",
-    fotos: [10, 15, 17, 5, 6, 11, 12, 2, 16]
+
+    fotos: [
+      "foto (10).JPG",
+      "foto (15).JPG",
+      "foto (17).JPG",
+      "foto (5).JPG",
+      "foto (6).JPG",
+      "foto (11).JPG",
+      "foto (12).JPG",
+      "foto (2).JPG",
+      "foto (16).JPG"
+    ]
   },
+
 
   {
     titulo: "La promesa",
-    fotos: [1, 3, 4, 9, 14, 18, 19, 25, 26]
+
+    fotos: [
+      "foto (1).JPG",
+      "foto (3).JPG",
+      "foto (4).JPG",
+      "foto (9).JPG",
+      "foto (14).JPG",
+      "foto (18).JPG",
+      "foto (19).JPG",
+      "foto (25).JPG",
+      "foto (26).JPG"
+    ]
   },
+
 
   {
     titulo: "Hoy en día",
-    fotos: [21]
+
+    fotos: [
+      "foto (21).JPG",
+
+      "foto (27).JPEG",
+      "foto (27).JPG",
+
+      "foto (28).JPEG",
+      "foto (28).JPG",
+
+      "foto (29).JPEG",
+
+      "foto (30).JPEG"
+    ]
   }
 
 ];
 
 
-/* =========================================
-   CREAR SECCIONES
-========================================= */
+/* ========================================
+   CREAR GALERÍA
+======================================== */
 
 const contenido =
   document.getElementById("contenido");
 
 
-let todasLasFotos = [];
+const todasLasFotos = [];
 
 
 secciones.forEach((seccion) => {
@@ -506,112 +524,127 @@ secciones.forEach((seccion) => {
   const bloque =
     document.createElement("section");
 
-  bloque.className = "seccion";
+  bloque.className =
+    "seccion";
 
 
-  /* TÍTULO */
-
-  const titulo =
+  const encabezado =
     document.createElement("div");
 
-  titulo.className = "titulo-seccion";
-
-  titulo.innerHTML = `
-    <h2>${seccion.titulo}</h2>
-    <div class="linea"></div>
-  `;
+  encabezado.className =
+    "titulo-seccion";
 
 
-  /* GALERÍA */
+  const h2 =
+    document.createElement("h2");
+
+  h2.textContent =
+    seccion.titulo;
+
+
+  const linea =
+    document.createElement("div");
+
+  linea.className =
+    "linea";
+
+
+  encabezado.appendChild(h2);
+
+  encabezado.appendChild(linea);
+
 
   const galeria =
     document.createElement("div");
 
-  galeria.className = "galeria";
+  galeria.className =
+    "galeria";
 
 
-  seccion.fotos.forEach(
-    (numero, posicion) => {
+  seccion.fotos.forEach((archivo) => {
 
-      const contenedor =
-        document.createElement("div");
+    const contenedorFoto =
+      document.createElement("div");
 
-      contenedor.className = "foto";
-
-
-
-      const imagen =
-        document.createElement("img");
+    contenedorFoto.className =
+      "foto";
 
 
-      /*
-       IMPORTANTE:
-       Las imágenes están dentro
-       de la carpeta "galeria"
-       y tienen extensión .JPG
-      */
-
-      imagen.src =
-        `./galeria/${encodeURIComponent(nombreArchivo)}`;
+    const imagen =
+      document.createElement("img");
 
 
-      imagen.alt =
-        `${seccion.titulo} - Foto ${numero}`;
+    /*
+      IMPORTANTE:
+      las fotos están en /galeria/
+      encodeURIComponent evita problemas
+      con espacios y paréntesis.
+    */
+
+    imagen.src =
+      "./galeria/" +
+      encodeURIComponent(archivo);
 
 
-      imagen.loading = "lazy";
+    imagen.alt =
+      seccion.titulo;
 
 
-      /*
-       Guardamos a qué sección
-       pertenece cada foto.
-      */
-
-      imagen.dataset.seccion =
-        seccion.titulo;
+    imagen.dataset.seccion =
+      seccion.titulo;
 
 
-      contenedor.appendChild(imagen);
-
-      galeria.appendChild(contenedor);
-
-
-      todasLasFotos.push(imagen);
-
-    }
-  );
+    imagen.dataset.archivo =
+      archivo;
 
 
-  bloque.appendChild(titulo);
+    contenedorFoto.appendChild(imagen);
+
+    galeria.appendChild(contenedorFoto);
+
+
+    todasLasFotos.push(imagen);
+
+  });
+
+
+  bloque.appendChild(encabezado);
 
   bloque.appendChild(galeria);
+
 
   contenido.appendChild(bloque);
 
 });
 
 
-/* =========================================
+/* ========================================
    LIGHTBOX
-========================================= */
+======================================== */
 
 const lightbox =
   document.getElementById("lightbox");
 
+
 const imagenGrande =
   document.getElementById("imagenGrande");
+
 
 const cerrar =
   document.getElementById("cerrar");
 
+
 const anterior =
   document.getElementById("anterior");
+
 
 const siguiente =
   document.getElementById("siguiente");
 
+
 const contador =
   document.getElementById("contador");
+
 
 const nombreSeccion =
   document.getElementById("nombreSeccion");
@@ -620,7 +653,7 @@ const nombreSeccion =
 let indiceActual = 0;
 
 
-/* ACTUALIZAR FOTO */
+/* ACTUALIZAR VISOR */
 
 function actualizarFoto() {
 
@@ -644,35 +677,63 @@ function actualizarFoto() {
 
 /* ABRIR */
 
-function mostrarFoto(indice) {
+function abrirFoto(indice) {
 
-  indiceActual = indice;
+  indiceActual =
+    indice;
+
 
   actualizarFoto();
 
-  lightbox.classList.add("activo");
 
-  document.body.style.overflow = "hidden";
+  lightbox.classList.add(
+    "activo"
+  );
+
+
+  document.body.style.overflow =
+    "hidden";
 
 }
 
 
-/* CLICK EN FOTOS */
+/* CLICK EN CADA FOTO */
 
 todasLasFotos.forEach(
   (foto, indice) => {
 
     foto.addEventListener(
       "click",
-      () => {
+      function() {
 
-        mostrarFoto(indice);
+        abrirFoto(indice);
 
       }
     );
 
   }
 );
+
+
+/* SIGUIENTE */
+
+function fotoSiguiente() {
+
+  indiceActual++;
+
+  if (
+    indiceActual >=
+    todasLasFotos.length
+  ) {
+
+    indiceActual = 0;
+
+  }
+
+
+  actualizarFoto();
+
+}
 
 
 /* ANTERIOR */
@@ -688,36 +749,28 @@ function fotoAnterior() {
 
   }
 
-  actualizarFoto();
-
-}
-
-
-/* SIGUIENTE */
-
-function fotoSiguiente() {
-
-  indiceActual++;
-
-  if (
-    indiceActual >= todasLasFotos.length
-  ) {
-
-    indiceActual = 0;
-
-  }
 
   actualizarFoto();
 
 }
 
 
-/* FLECHAS */
+/* CERRAR */
 
-anterior.addEventListener(
-  "click",
-  fotoAnterior
-);
+function cerrarLightbox() {
+
+  lightbox.classList.remove(
+    "activo"
+  );
+
+
+  document.body.style.overflow =
+    "";
+
+}
+
+
+/* BOTONES */
 
 siguiente.addEventListener(
   "click",
@@ -725,31 +778,29 @@ siguiente.addEventListener(
 );
 
 
-/* CERRAR */
+anterior.addEventListener(
+  "click",
+  fotoAnterior
+);
 
-function cerrarGaleria() {
-
-  lightbox.classList.remove("activo");
-
-  document.body.style.overflow = "auto";
-
-}
 
 cerrar.addEventListener(
   "click",
-  cerrarGaleria
+  cerrarLightbox
 );
 
 
-/* CLICK FUERA DE FOTO */
+/* CLICK EN EL FONDO */
 
 lightbox.addEventListener(
   "click",
-  (e) => {
+  function(evento) {
 
-    if (e.target === lightbox) {
+    if (
+      evento.target === lightbox
+    ) {
 
-      cerrarGaleria();
+      cerrarLightbox();
 
     }
 
@@ -757,75 +808,102 @@ lightbox.addEventListener(
 );
 
 
-/* =========================================
-   TECLADO
-========================================= */
+/* TECLADO */
 
 document.addEventListener(
   "keydown",
-  (e) => {
+  function(evento) {
 
     if (
-      !lightbox.classList.contains("activo")
+      !lightbox.classList.contains(
+        "activo"
+      )
     ) {
+
       return;
+
     }
 
-    if (e.key === "ArrowRight") {
+
+    if (
+      evento.key ===
+      "ArrowRight"
+    ) {
+
       fotoSiguiente();
+
     }
 
-    if (e.key === "ArrowLeft") {
+
+    if (
+      evento.key ===
+      "ArrowLeft"
+    ) {
+
       fotoAnterior();
+
     }
 
-    if (e.key === "Escape") {
-      cerrarGaleria();
+
+    if (
+      evento.key ===
+      "Escape"
+    ) {
+
+      cerrarLightbox();
+
     }
 
   }
 );
 
 
-/* =========================================
+/* ========================================
    DESLIZAR EN MÓVIL
-========================================= */
+======================================== */
 
 let inicioTouch = 0;
 
 
 imagenGrande.addEventListener(
   "touchstart",
-  (e) => {
+  function(evento) {
 
     inicioTouch =
-      e.changedTouches[0].screenX;
+      evento.changedTouches[0].screenX;
 
   },
-  { passive: true }
+  {
+    passive: true
+  }
 );
 
 
 imagenGrande.addEventListener(
   "touchend",
-  (e) => {
+  function(evento) {
 
     const finalTouch =
-      e.changedTouches[0].screenX;
+      evento.changedTouches[0].screenX;
 
 
     const diferencia =
-      inicioTouch - finalTouch;
+      inicioTouch -
+      finalTouch;
 
 
     if (
       Math.abs(diferencia) < 50
     ) {
+
       return;
+
     }
 
 
-    if (diferencia > 0) {
+    if (
+      diferencia > 0
+    ) {
 
       fotoSiguiente();
 
@@ -838,11 +916,13 @@ imagenGrande.addEventListener(
     }
 
   },
-  { passive: true }
+  {
+    passive: true
+  }
 );
 
 </script>
 
-
 </body>
+
 </html>
