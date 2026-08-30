@@ -13,8 +13,7 @@
       box-sizing: border-box;
     }
 
-    html,
-    body {
+    html, body {
       margin: 0;
       padding: 0;
     }
@@ -26,6 +25,9 @@
       padding: 50px 20px 80px;
     }
 
+
+    /* CABECERA */
+
     .cabecera {
       text-align: center;
       margin-bottom: 65px;
@@ -33,8 +35,9 @@
 
     .cabecera h1 {
       margin: 0 0 12px;
-      font-size: 55px;
+      font-size: clamp(40px, 6vw, 58px);
       font-weight: 400;
+      letter-spacing: 1px;
     }
 
     .cabecera p {
@@ -45,66 +48,100 @@
       color: #77716c;
     }
 
+
+    /* SECCIONES */
+
     .seccion {
       max-width: 1200px;
-      margin: 0 auto 80px;
+      margin: 0 auto 85px;
     }
 
     .titulo {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 32px;
     }
 
     .titulo h2 {
       margin: 0;
-      font-size: 38px;
-      font-style: italic;
+      font-size: clamp(30px, 4vw, 40px);
       font-weight: 400;
+      font-style: italic;
     }
 
     .linea {
-      width: 50px;
+      width: 52px;
       height: 1px;
       background: #9d9287;
       margin: 14px auto 0;
     }
 
+
+    /* GALERÍA */
+
     .galeria {
       columns: 3;
-      column-gap: 15px;
+      column-gap: 16px;
     }
 
     .foto {
-      width: 100%;
+      position: relative;
       display: inline-block;
-      margin: 0 0 15px;
+      width: 100%;
+      margin: 0 0 16px;
       break-inside: avoid;
       overflow: hidden;
-      border-radius: 10px;
-      box-shadow: 0 3px 14px rgba(0,0,0,0.10);
+      border-radius: 11px;
       cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      background: #eeeae4;
     }
 
     .foto img {
+      display: block;
       width: 100%;
       height: auto;
-      display: block;
+      opacity: 1;
+      transition: transform 0.4s ease, filter 0.4s ease;
+    }
+
+    .foto:hover img {
+      transform: scale(1.025);
+      filter: brightness(0.92);
+    }
+
+    .foto::after {
+      content: "Ver foto";
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      background: rgba(20,18,16,0.12);
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .foto:hover::after {
       opacity: 1;
     }
 
-    .foto img:hover {
-      transform: scale(1.02);
-      transition: transform 0.3s ease;
-    }
+
+    /* LIGHTBOX */
 
     .lightbox {
+      display: none;
       position: fixed;
       inset: 0;
-      display: none;
-      background: rgba(0,0,0,0.93);
-      z-index: 9999;
+      background: rgba(15,14,13,0.96);
+      z-index: 99999;
       align-items: center;
       justify-content: center;
+      padding: 30px;
     }
 
     .lightbox.activo {
@@ -112,9 +149,11 @@
     }
 
     .lightbox img {
-      max-width: 90%;
-      max-height: 85%;
+      max-width: 90vw;
+      max-height: 84vh;
       object-fit: contain;
+      border-radius: 5px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
     }
 
     .cerrar {
@@ -125,9 +164,57 @@
       font-family: Arial, sans-serif;
       font-size: 42px;
       cursor: pointer;
+      user-select: none;
+      z-index: 10;
     }
 
-    @media (max-width: 850px) {
+    .flecha {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 55px;
+      padding: 20px;
+      cursor: pointer;
+      user-select: none;
+      z-index: 10;
+    }
+
+    .anterior {
+      left: 5px;
+    }
+
+    .siguiente {
+      right: 5px;
+    }
+
+    .info {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      color: white;
+    }
+
+    .info-seccion {
+      font-size: 17px;
+      font-style: italic;
+      margin-bottom: 5px;
+    }
+
+    .contador {
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      opacity: 0.8;
+    }
+
+
+    /* TABLET */
+
+    @media (max-width: 900px) {
 
       .galeria {
         columns: 2;
@@ -135,18 +222,26 @@
 
     }
 
-    @media (max-width: 500px) {
+
+    /* MÓVIL */
+
+    @media (max-width: 600px) {
 
       body {
-        padding: 30px 8px 60px;
+        padding: 35px 9px 60px;
       }
 
-      .cabecera h1 {
-        font-size: 38px;
+      .cabecera {
+        margin-bottom: 50px;
       }
 
-      .titulo h2 {
-        font-size: 29px;
+      .cabecera p {
+        font-size: 10px;
+        letter-spacing: 1.4px;
+      }
+
+      .seccion {
+        margin-bottom: 65px;
       }
 
       .galeria {
@@ -156,26 +251,49 @@
 
       .foto {
         margin-bottom: 8px;
-        border-radius: 6px;
+        border-radius: 7px;
+      }
+
+      .lightbox {
+        padding: 8px;
+      }
+
+      .lightbox img {
+        max-width: 96vw;
+        max-height: 78vh;
+      }
+
+      .flecha {
+        font-size: 40px;
+        padding: 8px;
+      }
+
+      .anterior {
+        left: 0;
+      }
+
+      .siguiente {
+        right: 0;
       }
 
     }
 
   </style>
-
 </head>
 
 
 <body>
 
 
-  <div class="cabecera">
+  <!-- CABECERA -->
+
+  <header class="cabecera">
 
     <h1>Nuestra historia</h1>
 
     <p>UN CAMINO QUE NOS HA TRAÍDO HASTA AQUÍ</p>
 
-  </div>
+  </header>
 
 
 
@@ -191,11 +309,11 @@
     <div class="galeria">
 
       <div class="foto">
-        <img src="./galeria/foto%20(13).JPG" alt="La casualidad">
+        <img src="foto%20(13).JPG" data-seccion="La casualidad" alt="">
       </div>
 
       <div class="foto">
-        <img src="./galeria/foto%20(20).JPG" alt="La casualidad">
+        <img src="foto%20(20).JPG" data-seccion="La casualidad" alt="">
       </div>
 
     </div>
@@ -216,23 +334,23 @@
     <div class="galeria">
 
       <div class="foto">
-        <img src="./galeria/foto%20(24).JPG">
+        <img src="foto%20(24).JPG" data-seccion="El Secreto" alt="">
       </div>
 
       <div class="foto">
-        <img src="./galeria/foto%20(23).JPG">
+        <img src="foto%20(23).JPG" data-seccion="El Secreto" alt="">
       </div>
 
       <div class="foto">
-        <img src="./galeria/foto%20(22).JPG">
+        <img src="foto%20(22).JPG" data-seccion="El Secreto" alt="">
       </div>
 
       <div class="foto">
-        <img src="./galeria/foto%20(8).JPG">
+        <img src="foto%20(8).JPG" data-seccion="El Secreto" alt="">
       </div>
 
       <div class="foto">
-        <img src="./galeria/foto%20(7).JPG">
+        <img src="foto%20(7).JPG" data-seccion="El Secreto" alt="">
       </div>
 
     </div>
@@ -252,15 +370,23 @@
 
     <div class="galeria">
 
-      <div class="foto"><img src="./galeria/foto%20(10).JPG"></div>
-      <div class="foto"><img src="./galeria/foto%20(15).JPG"></div>
-      <div class="foto"><img src="./galeria/foto%20(17).JPG"></div>
-      <div class="foto"><img src="./galeria/foto%20(5).JPG"></div>
-      <div class="foto"><img src="./galeria/foto%20(6).JPG"></div>
-      <div class="foto"><img src="./galeria/foto%20(11).JPG"></div>
-      <div class="foto"><img src="./galeria/foto%20(12).JPG"></div>
-      <div class="foto"><img src="./galeria/foto%20(2).JPG"></div>
-      <div class="foto"><img src="./galeria/foto%20(16).JPG"></div>
+      <div class="foto"><img src="foto%20(10).JPG" data-seccion="La pareja" alt=""></div>
+
+      <div class="foto"><img src="foto%20(15).JPG" data-seccion="La pareja" alt=""></div>
+
+      <div class="foto"><img src="foto%20(17).JPG" data-seccion="La pareja" alt=""></div>
+
+      <div class="foto"><img src="foto%20(5).JPG" data-seccion="La pareja" alt=""></div>
+
+      <div class="foto"><img src="foto%20(6).JPG" data-seccion="La pareja" alt=""></div>
+
+      <div class="foto"><img src="foto%20(11).JPG" data-seccion="La pareja" alt=""></div>
+
+      <div class="foto"><img src="foto%20(12).JPG" data-seccion="La pareja" alt=""></div>
+
+      <div class="foto"><img src="foto%20(2).JPG" data-seccion="La pareja" alt=""></div>
+
+      <div class="foto"><img src="foto%20(16).JPG" data-seccion="La pareja" alt=""></div>
 
     </div>
 
@@ -279,15 +405,23 @@
 
     <div class="galeria">
 
-      <div class="foto"><img src="./galeria/foto%20(1).JPG"></div>
-      <div class="foto"><img src="./galeria/foto%20(3).JPG"></div>
-      <div class="foto"><img src="./galeria/foto%20(4).JPG"></div>
-      <div class="foto"><img src="./galeria/foto%20(9).JPG"></div>
-      <div class="foto"><img src="./galeria/foto%20(14).JPG"></div>
-      <div class="foto"><img src="./galeria/foto%20(18).JPG"></div>
-      <div class="foto"><img src="./galeria/foto%20(19).JPG"></div>
-      <div class="foto"><img src="./galeria/foto%20(25).JPG"></div>
-      <div class="foto"><img src="./galeria/foto%20(26).JPG"></div>
+      <div class="foto"><img src="foto%20(1).JPG" data-seccion="La promesa" alt=""></div>
+
+      <div class="foto"><img src="foto%20(3).JPG" data-seccion="La promesa" alt=""></div>
+
+      <div class="foto"><img src="foto%20(4).JPG" data-seccion="La promesa" alt=""></div>
+
+      <div class="foto"><img src="foto%20(9).JPG" data-seccion="La promesa" alt=""></div>
+
+      <div class="foto"><img src="foto%20(14).JPG" data-seccion="La promesa" alt=""></div>
+
+      <div class="foto"><img src="foto%20(18).JPG" data-seccion="La promesa" alt=""></div>
+
+      <div class="foto"><img src="foto%20(19).JPG" data-seccion="La promesa" alt=""></div>
+
+      <div class="foto"><img src="foto%20(25).JPG" data-seccion="La promesa" alt=""></div>
+
+      <div class="foto"><img src="foto%20(26).JPG" data-seccion="La promesa" alt=""></div>
 
     </div>
 
@@ -306,11 +440,25 @@
 
     <div class="galeria">
 
-      <div class="foto"><img src="./galeria/foto%20(21).JPG"></div>
-      <div class="foto"><img src="./galeria/foto%20(27).jpg"></div>
-      <div class="foto"><img src="./galeria/foto%20(28).jpg"></div>
-      <div class="foto"><img src="./galeria/foto%20(29).jpg"></div>
-      <div class="foto"><img src="./galeria/foto%20(30).jpg"></div>
+      <div class="foto">
+        <img src="foto%20(21).JPG" data-seccion="Hoy en día" alt="">
+      </div>
+
+      <div class="foto">
+        <img src="foto%20(27).jpg" data-seccion="Hoy en día" alt="">
+      </div>
+
+      <div class="foto">
+        <img src="foto%20(28).jpg" data-seccion="Hoy en día" alt="">
+      </div>
+
+      <div class="foto">
+        <img src="foto%20(29).jpg" data-seccion="Hoy en día" alt="">
+      </div>
+
+      <div class="foto">
+        <img src="foto%20(30).jpg" data-seccion="Hoy en día" alt="">
+      </div>
 
     </div>
 
@@ -318,13 +466,25 @@
 
 
 
-  <!-- VISOR -->
+  <!-- VISOR DE FOTOS -->
 
   <div class="lightbox" id="lightbox">
 
     <div class="cerrar" id="cerrar">×</div>
 
-    <img id="imagenGrande">
+    <div class="flecha anterior" id="anterior">‹</div>
+
+    <img id="imagenGrande" src="" alt="">
+
+    <div class="flecha siguiente" id="siguiente">›</div>
+
+    <div class="info">
+
+      <div class="info-seccion" id="infoSeccion"></div>
+
+      <div class="contador" id="contador"></div>
+
+    </div>
 
   </div>
 
@@ -332,8 +492,8 @@
 
   <script>
 
-    const imagenes =
-      document.querySelectorAll(".foto img");
+    const fotos =
+      Array.from(document.querySelectorAll(".foto img"));
 
     const lightbox =
       document.getElementById("lightbox");
@@ -341,36 +501,107 @@
     const imagenGrande =
       document.getElementById("imagenGrande");
 
-    const cerrar =
-      document.getElementById("cerrar");
+    const infoSeccion =
+      document.getElementById("infoSeccion");
+
+    const contador =
+      document.getElementById("contador");
+
+    let indice = 0;
 
 
-    imagenes.forEach(function(imagen) {
+    function actualizarFoto() {
 
-      imagen.addEventListener("click", function() {
+      imagenGrande.src =
+        fotos[indice].src;
 
-        imagenGrande.src = imagen.src;
+      infoSeccion.textContent =
+        fotos[indice].dataset.seccion;
 
-        lightbox.classList.add("activo");
+      contador.textContent =
+        (indice + 1) + " / " + fotos.length;
+
+    }
+
+
+    function abrirFoto(posicion) {
+
+      indice = posicion;
+
+      actualizarFoto();
+
+      lightbox.classList.add("activo");
+
+      document.body.style.overflow = "hidden";
+
+    }
+
+
+    function cerrarFoto() {
+
+      lightbox.classList.remove("activo");
+
+      document.body.style.overflow = "";
+
+    }
+
+
+    function siguienteFoto() {
+
+      indice++;
+
+      if (indice >= fotos.length) {
+        indice = 0;
+      }
+
+      actualizarFoto();
+
+    }
+
+
+    function anteriorFoto() {
+
+      indice--;
+
+      if (indice < 0) {
+        indice = fotos.length - 1;
+      }
+
+      actualizarFoto();
+
+    }
+
+
+    fotos.forEach(function(foto, posicion) {
+
+      foto.addEventListener("click", function() {
+
+        abrirFoto(posicion);
 
       });
 
     });
 
 
-    cerrar.addEventListener("click", function() {
+    document
+      .getElementById("cerrar")
+      .addEventListener("click", cerrarFoto);
 
-      lightbox.classList.remove("activo");
 
-    });
+    document
+      .getElementById("siguiente")
+      .addEventListener("click", siguienteFoto);
+
+
+    document
+      .getElementById("anterior")
+      .addEventListener("click", anteriorFoto);
 
 
     lightbox.addEventListener("click", function(evento) {
 
       if (evento.target === lightbox) {
-
-        lightbox.classList.remove("activo");
-
+        cerrarFoto();
       }
 
     });
@@ -378,10 +609,20 @@
 
     document.addEventListener("keydown", function(evento) {
 
+      if (!lightbox.classList.contains("activo")) {
+        return;
+      }
+
       if (evento.key === "Escape") {
+        cerrarFoto();
+      }
 
-        lightbox.classList.remove("activo");
+      if (evento.key === "ArrowRight") {
+        siguienteFoto();
+      }
 
+      if (evento.key === "ArrowLeft") {
+        anteriorFoto();
       }
 
     });
