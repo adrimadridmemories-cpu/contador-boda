@@ -1,19 +1,658 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prueba galería</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nuestra historia</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #f7f4ef;
+  color: #3f3a36;
+  font-family: Georgia, "Times New Roman", serif;
+  padding: 50px 20px 80px;
+}
+
+
+/* CABECERA */
+
+.cabecera {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.cabecera h1 {
+  margin: 0 0 14px;
+  font-size: clamp(40px, 6vw, 58px);
+  font-weight: 400;
+}
+
+.cabecera p {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #77716c;
+}
+
+
+/* SECCIONES */
+
+.seccion {
+  max-width: 1200px;
+  margin: 0 auto 85px;
+}
+
+.titulo {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.titulo h2 {
+  margin: 0;
+  font-size: clamp(30px, 4vw, 40px);
+  font-weight: 400;
+  font-style: italic;
+}
+
+.linea {
+  width: 52px;
+  height: 1px;
+  background: #9d9287;
+  margin: 14px auto 0;
+}
+
+
+/* GALERÍA */
+
+.galeria {
+  columns: 3;
+  column-gap: 16px;
+}
+
+.foto {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 16px;
+  break-inside: avoid;
+  overflow: hidden;
+  border-radius: 11px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+}
+
+.foto img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.foto:hover img {
+  transform: scale(1.025);
+  filter: brightness(0.90);
+}
+
+.foto::after {
+  content: "Ver foto";
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+
+  background: rgba(20,18,16,0.12);
+
+  opacity: 0;
+
+  transition: opacity 0.3s ease;
+
+  pointer-events: none;
+}
+
+.foto:hover::after {
+  opacity: 1;
+}
+
+
+/* VISOR */
+
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+
+  background: rgba(15,14,13,0.96);
+
+  z-index: 99999;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+}
+
+.lightbox.activo {
+  display: flex;
+}
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 84vh;
+  object-fit: contain;
+
+  border-radius: 5px;
+
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.cerrar {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+
+  color: white;
+
+  font-family: Arial, sans-serif;
+  font-size: 42px;
+
+  cursor: pointer;
+  user-select: none;
+
+  z-index: 10;
+}
+
+.flecha {
+  position: absolute;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: white;
+
+  font-family: Arial, sans-serif;
+  font-size: 55px;
+
+  padding: 20px;
+
+  cursor: pointer;
+  user-select: none;
+
+  z-index: 10;
+}
+
+.anterior {
+  left: 5px;
+}
+
+.siguiente {
+  right: 5px;
+}
+
+.info {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  text-align: center;
+  color: white;
+}
+
+.info-seccion {
+  font-size: 17px;
+  font-style: italic;
+  margin-bottom: 5px;
+}
+
+.contador {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+}
+
+
+/* TABLET */
+
+@media (max-width: 900px) {
+
+  .galeria {
+    columns: 2;
+  }
+
+}
+
+
+/* MÓVIL */
+
+@media (max-width: 600px) {
+
+  body {
+    padding: 35px 9px 60px;
+  }
+
+  .cabecera {
+    margin-bottom: 50px;
+  }
+
+  .cabecera p {
+    font-size: 10px;
+  }
+
+  .seccion {
+    margin-bottom: 65px;
+  }
+
+  .galeria {
+    columns: 2;
+    column-gap: 8px;
+  }
+
+  .foto {
+    margin-bottom: 8px;
+    border-radius: 7px;
+  }
+
+  .lightbox {
+    padding: 8px;
+  }
+
+  .lightbox img {
+    max-width: 96vw;
+    max-height: 78vh;
+  }
+
+  .flecha {
+    font-size: 40px;
+    padding: 8px;
+  }
+
+  .anterior {
+    left: 0;
+  }
+
+  .siguiente {
+    right: 0;
+  }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-  <h1>Prueba de foto</h1>
 
-  <img
-    src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(1).JPG"
-    style="max-width:600px; width:100%;"
-  >
+<header class="cabecera">
+
+  <h1>Nuestra historia</h1>
+
+  <p>UN CAMINO QUE NOS HA TRAÍDO HASTA AQUÍ</p>
+
+</header>
+
+
+
+<!-- LA CASUALIDAD -->
+
+<section class="seccion">
+
+  <div class="titulo">
+    <h2>La casualidad</h2>
+    <div class="linea"></div>
+  </div>
+
+  <div class="galeria">
+
+    <div class="foto">
+      <img
+        src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(13).JPG"
+        data-seccion="La casualidad">
+    </div>
+
+    <div class="foto">
+      <img
+        src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(20).JPG"
+        data-seccion="La casualidad">
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- EL SECRETO -->
+
+<section class="seccion">
+
+  <div class="titulo">
+    <h2>El Secreto</h2>
+    <div class="linea"></div>
+  </div>
+
+  <div class="galeria">
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(24).JPG" data-seccion="El Secreto"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(23).JPG" data-seccion="El Secreto"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(22).JPG" data-seccion="El Secreto"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(8).JPG" data-seccion="El Secreto"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(7).JPG" data-seccion="El Secreto"></div>
+
+  </div>
+
+</section>
+
+
+
+<!-- LA PAREJA -->
+
+<section class="seccion">
+
+  <div class="titulo">
+    <h2>La pareja</h2>
+    <div class="linea"></div>
+  </div>
+
+  <div class="galeria">
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(10).JPG" data-seccion="La pareja"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(15).JPG" data-seccion="La pareja"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(17).JPG" data-seccion="La pareja"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(5).JPG" data-seccion="La pareja"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(6).JPG" data-seccion="La pareja"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(11).JPG" data-seccion="La pareja"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(12).JPG" data-seccion="La pareja"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(2).JPG" data-seccion="La pareja"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(16).JPG" data-seccion="La pareja"></div>
+
+  </div>
+
+</section>
+
+
+
+<!-- LA PROMESA -->
+
+<section class="seccion">
+
+  <div class="titulo">
+    <h2>La promesa</h2>
+    <div class="linea"></div>
+  </div>
+
+  <div class="galeria">
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(1).JPG" data-seccion="La promesa"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(3).JPG" data-seccion="La promesa"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(4).JPG" data-seccion="La promesa"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(9).JPG" data-seccion="La promesa"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(14).JPG" data-seccion="La promesa"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(18).JPG" data-seccion="La promesa"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(19).JPG" data-seccion="La promesa"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(25).JPG" data-seccion="La promesa"></div>
+
+    <div class="foto"><img src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(26).JPG" data-seccion="La promesa"></div>
+
+  </div>
+
+</section>
+
+
+
+<!-- HOY EN DÍA -->
+
+<section class="seccion">
+
+  <div class="titulo">
+    <h2>Hoy en día</h2>
+    <div class="linea"></div>
+  </div>
+
+  <div class="galeria">
+
+    <div class="foto">
+      <img
+        src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(21).JPG"
+        data-seccion="Hoy en día">
+    </div>
+
+    <div class="foto">
+      <img
+        src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(27).jpg"
+        data-seccion="Hoy en día">
+    </div>
+
+    <div class="foto">
+      <img
+        src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(28).jpg"
+        data-seccion="Hoy en día">
+    </div>
+
+    <div class="foto">
+      <img
+        src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(29).jpg"
+        data-seccion="Hoy en día">
+    </div>
+
+    <div class="foto">
+      <img
+        src="https://adrimadridmemories-cpu.github.io/contador-boda/foto%20(30).jpg"
+        data-seccion="Hoy en día">
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- VISOR -->
+
+<div class="lightbox" id="lightbox">
+
+  <div class="cerrar" id="cerrar">×</div>
+
+  <div class="flecha anterior" id="anterior">‹</div>
+
+  <img id="imagenGrande" src="">
+
+  <div class="flecha siguiente" id="siguiente">›</div>
+
+  <div class="info">
+
+    <div class="info-seccion" id="infoSeccion"></div>
+
+    <div class="contador" id="contador"></div>
+
+  </div>
+
+</div>
+
+
+
+<script>
+
+const fotos =
+  Array.from(document.querySelectorAll(".foto img"));
+
+const lightbox =
+  document.getElementById("lightbox");
+
+const imagenGrande =
+  document.getElementById("imagenGrande");
+
+const infoSeccion =
+  document.getElementById("infoSeccion");
+
+const contador =
+  document.getElementById("contador");
+
+let indice = 0;
+
+
+function actualizarFoto() {
+
+  imagenGrande.src = fotos[indice].src;
+
+  infoSeccion.textContent =
+    fotos[indice].dataset.seccion;
+
+  contador.textContent =
+    (indice + 1) + " / " + fotos.length;
+
+}
+
+
+function abrirFoto(posicion) {
+
+  indice = posicion;
+
+  actualizarFoto();
+
+  lightbox.classList.add("activo");
+
+  document.body.style.overflow = "hidden";
+
+}
+
+
+function cerrarFoto() {
+
+  lightbox.classList.remove("activo");
+
+  document.body.style.overflow = "";
+
+}
+
+
+function siguienteFoto() {
+
+  indice++;
+
+  if (indice >= fotos.length) {
+    indice = 0;
+  }
+
+  actualizarFoto();
+
+}
+
+
+function anteriorFoto() {
+
+  indice--;
+
+  if (indice < 0) {
+    indice = fotos.length - 1;
+  }
+
+  actualizarFoto();
+
+}
+
+
+fotos.forEach(function(foto, posicion) {
+
+  foto.addEventListener("click", function() {
+
+    abrirFoto(posicion);
+
+  });
+
+});
+
+
+document
+.getElementById("cerrar")
+.addEventListener("click", cerrarFoto);
+
+
+document
+.getElementById("siguiente")
+.addEventListener("click", siguienteFoto);
+
+
+document
+.getElementById("anterior")
+.addEventListener("click", anteriorFoto);
+
+
+lightbox.addEventListener("click", function(evento) {
+
+  if (evento.target === lightbox) {
+
+    cerrarFoto();
+
+  }
+
+});
+
+
+document.addEventListener("keydown", function(evento) {
+
+  if (!lightbox.classList.contains("activo")) {
+    return;
+  }
+
+  if (evento.key === "Escape") {
+    cerrarFoto();
+  }
+
+  if (evento.key === "ArrowRight") {
+    siguienteFoto();
+  }
+
+  if (evento.key === "ArrowLeft") {
+    anteriorFoto();
+  }
+
+});
+
+</script>
+
 
 </body>
 </html>
